@@ -3,8 +3,14 @@ from django.http import HttpRequest
 
 from .model.page import Page
 from .model.setting import Setting
+from .model.contact import UserContact
+from .model.free_product import FreeProduct
+from .model.page import Page
 
 admin.site.register(Page)
+admin.site.register(FreeProduct)
+admin.site.register(UserContact)
+
 
 @admin.register(Setting)
 class SettingsAdmin(admin.ModelAdmin):
