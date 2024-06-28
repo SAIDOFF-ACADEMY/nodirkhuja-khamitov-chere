@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('common', '0002_initial'),
     ]
-    
+    atomic=False
     operations = [
         migrations.RunPython(create_settings)
     ]
