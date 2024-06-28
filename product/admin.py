@@ -6,4 +6,4 @@ from modeltranslation.admin import TranslationAdmin
 
 @admin.register(Product)
 class ProductAdmin(TranslationAdmin):
-    pass
+    list_display = ['id', 'name_uz', 'name_ru']

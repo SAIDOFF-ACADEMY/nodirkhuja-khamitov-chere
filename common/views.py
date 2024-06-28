@@ -1,6 +1,7 @@
 from common import serializers
 from common.model import setting
 from user.models import User_Profile
+from product.models import Product
 
 from rest_framework.response import Response
 from rest_framework import generics, permissions
@@ -38,8 +39,42 @@ class LogInView(generics.GenericAPIView):
         password = request.data.get('password')
         user = authenticate(email=email, password=password)
         if user:
-            token = Token.objects.get(user=user)
+            try:
+                token = Token.objects.get(user=user)
+            except:
+                token = Token.objects.create(user=user)
             login(request, user)
             return Response({'token': token.key}, status=status.HTTP_200_OK)
         return Response({'error': _('Invalid Credentials')}, status=status.HTTP_400_BAD_REQUEST)
-        
+
+
+class AddProductView(generics.CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = serializers.ProductSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    
+class UpdateProductView(generics.UpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = serializers.ProductSerializer
+    lookup_field = "pk"
+    permission_classes = [permissions.IsAdminUser]
+
+
+class RetriveProductView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = serializers.ProductSerializer
+    lookup_field = "pk"
+    permission_classes = [permissions.IsAdminUser]
+
+class DeleteProductView(generics.DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = serializers.ProductSerializer
+    lookup_field = "pk"
+    permission_classes = [permissions.IsAdminUser]
+
