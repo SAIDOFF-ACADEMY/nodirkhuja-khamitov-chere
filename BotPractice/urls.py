@@ -24,6 +24,10 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('api/v1/landing/common/', include('common.landing.urls')),
     path('api/v1/admin/common/', include('common.urls')),
+    path('api/v1/landing/product/', include('product.landing.urls')),
+    path('api/v1/admin/product/', include('product.urls')),
+    path('api/v1/admin/order/', include('order.urls')),
+    path('api/v1/user/', include('user.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

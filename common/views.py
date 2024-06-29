@@ -1,16 +1,11 @@
 from common import serializers
-from common.model import setting
-from user.models import User_Profile
-from product.models import Product
+from common.model import setting, page, gallery
+import time
 
 from rest_framework.response import Response
 from rest_framework import generics, permissions
-from rest_framework.authtoken.models import Token
-from rest_framework import status
 
-from django.contrib.auth import authenticate, login
 from django.utils.translation import gettext_lazy as _
-
 
 
 class SettingsView(generics.GenericAPIView):
@@ -29,52 +24,61 @@ class SettingsView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
-    
-class LogInView(generics.GenericAPIView):
-    queryset = User_Profile.objects.all()
-    serializer_class = serializers.LogInSerializer
-
-    def post(self, request):
-        email = request.data.get('email')
-        password = request.data.get('password')
-        user = authenticate(email=email, password=password)
-        if user:
-            try:
-                token = Token.objects.get(user=user)
-            except:
-                token = Token.objects.create(user=user)
-            login(request, user)
-            return Response({'token': token.key}, status=status.HTTP_200_OK)
-        return Response({'error': _('Invalid Credentials')}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class AddProductView(generics.CreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = serializers.ProductSerializer
-    permission_classes = [permissions.IsAdminUser]
-
-    def post(self, request):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-    
-class UpdateProductView(generics.UpdateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = serializers.ProductSerializer
-    lookup_field = "pk"
+class PageListView(generics.ListAPIView):
+    queryset = page.Page.objects.all()
+    serializer_class = serializers.PageSerializer
     permission_classes = [permissions.IsAdminUser]
 
 
-class RetriveProductView(generics.RetrieveAPIView):
-    queryset = Product.objects.all()
-    serializer_class = serializers.ProductSerializer
-    lookup_field = "pk"
+class AddPageView(generics.CreateAPIView):
+    queryset = page.Page.objects.all()
+    serializer_class = serializers.PageSerializer
     permission_classes = [permissions.IsAdminUser]
 
-class DeleteProductView(generics.DestroyAPIView):
-    queryset = Product.objects.all()
-    serializer_class = serializers.ProductSerializer
-    lookup_field = "pk"
+
+class RetrievePageView(generics.RetrieveAPIView):
+    queryset = page.Page.objects.all()
+    serializer_class = serializers.PageSerializer
+    lookup_field = 'slug'
     permission_classes = [permissions.IsAdminUser]
+
+
+class EditPageView(generics.UpdateAPIView):
+    queryset = page.Page.objects.all()
+    serializer_class = serializers.PageSerializer
+    lookup_field = 'slug'
+    permission_classes = [permissions.IsAdminUser]
+
+
+class DeletePageView(generics.DestroyAPIView):
+    queryset = page.Page.objects.all()
+    serializer_class = serializers.PageSerializer
+    lookup_field = 'slug'
+    permission_classes = [permissions.IsAdminUser]
+
+class ListGalleryView(generics.ListAPIView):
+    queryset = gallery.GalleryPhoto.objects.all()
+    serializer_class = serializers.GallerySerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+class AddGalleryView(generics.CreateAPIView):
+    queryset = gallery.GalleryPhoto.objects.all()
+    serializer_class = serializers.GallerySerializer
+    permission_classes = [permissions.IsAdminUser]
+
+    def post(self, reqeust, *args, **kwargs):
+        t1 = time.perf_counter()
+        resp = super(AddGalleryView, self).post(reqeust,*args, **kwargs)
+        print(time.perf_counter()-t1)
+        return Response({})
+
+class DeleteGalleryView(generics.DestroyAPIView):
+    queryset = gallery.GalleryPhoto.objects.all()
+    serializer_class = serializers.GallerySerializer
+    lookup_field = 'pk'
+    permission_classes = [permissions.IsAdminUser]
+
 

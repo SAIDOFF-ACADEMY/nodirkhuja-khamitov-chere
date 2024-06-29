@@ -10,9 +10,9 @@ from django.utils.translation import gettext_lazy as _
 class Orders(TimeAbstract):
 
     class Status(models.TextChoices):
-        WAITING = 'WA', 'Waiting'
-        PROCESS = 'PR', 'Process'
-        COMPLETED = 'CD', 'Completed'
+        WAITING = 'WA', _('Waiting')
+        PROCESS = 'PR', _('Process')
+        COMPLETED = 'CD', _('Completed')
 
     owner = models.ForeignKey(User_Profile,
                               on_delete=models.CASCADE,
