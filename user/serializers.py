@@ -13,3 +13,14 @@ class LogInSerializer(serializers.ModelSerializer):
             'email': {'required': True},
             'password': {'required': True},
         }
+
+
+class UserContacApplicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User_Profile
+        fields=[
+            'full_name',
+            'email',
+            'telegram_id',
+            'language'
+        ]

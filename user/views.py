@@ -3,7 +3,7 @@ from user.models import User_Profile
 
 
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 
@@ -28,3 +28,16 @@ class LogInView(generics.GenericAPIView):
         try: token = Token.objects.get(user=user)
         except: token = Token.objects.create(user=user)
         return Response({'token': token.key}, status=status.HTTP_200_OK)
+    
+    
+class UserContactApplicationListView(generics.ListAPIView):
+    queryset = User_Profile.objects.all()
+    serializer_class = serializers.UserContacApplicationSerializer
+    authentication_classes = [permissions.IsAdminUser]
+
+
+class UserContactApplicationEditView(generics.UpdateAPIView):
+    queryset = User_Profile.objects.all()
+    serializer_class = serializers.UserContacApplicationSerializer
+    authentication_classes = [permissions.IsAdminUser]
+ 
