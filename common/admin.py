@@ -3,12 +3,11 @@ from django.http import HttpRequest
 
 from .model.page import Page
 from .model.setting import Setting
-from .model.contact import UserContact
+
 from .model.page import Page
 from .model.gallery import GalleryPhoto
 
 admin.site.register(Page)
-admin.site.register(UserContact)
 admin.site.register(GalleryPhoto)
 
 

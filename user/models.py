@@ -1,10 +1,11 @@
+from common.model.base_model import BaseModel
+
 from phonenumber_field.modelfields import PhoneNumberField
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import UserManager
-from django.utils import timezone
 
 class CustomUserManager(UserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -52,3 +53,17 @@ class User_Profile(AbstractUser):
 
     def __str__(self) -> str:
         return self.email
+    
+
+class UserContactApplication(BaseModel):
+
+    full_name = models.CharField(max_length=50)
+    phone_number = models.IntegerField()
+    user = models.ForeignKey(User_Profile, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f'{self.full_name} from telegram: {self.user.telegram_id != None}' 
+    
+    class Meta:
+        verbose_name = _('contact')
+        verbose_name_plural = _('contacts')

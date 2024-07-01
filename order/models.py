@@ -2,12 +2,12 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from user.models import User_Profile
 from product.models import Product
-from common.model.setting import TimeAbstract
+from common.model.base_model import BaseModel
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-class Orders(TimeAbstract):
+class Orders(BaseModel):
 
     class Status(models.TextChoices):
         WAITING = 'WA', _('Waiting')

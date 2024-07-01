@@ -1,10 +1,10 @@
-from common.model.setting import TimeAbstract
+from common.model.base_model import BaseModel
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class Product(TimeAbstract):
+class Product(BaseModel):
 
     name = models.CharField(max_length=70)
     content = RichTextUploadingField()
@@ -21,7 +21,7 @@ class Product(TimeAbstract):
         verbose_name_plural = _('products')
 
 
-class FreeProduct(TimeAbstract):
+class FreeProduct(BaseModel):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     count = models.PositiveIntegerField()

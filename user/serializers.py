@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from user.models import User_Profile
+from user.models import UserContactApplication
 
 class LogInSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
@@ -17,10 +18,9 @@ class LogInSerializer(serializers.ModelSerializer):
 
 class UserContacApplicationSerializer(serializers.ModelSerializer):
     class Meta:
-        model=User_Profile
+        model=UserContactApplication
         fields=[
             'full_name',
-            'email',
-            'telegram_id',
-            'language'
+            'phone_number',
+            'user',
         ]

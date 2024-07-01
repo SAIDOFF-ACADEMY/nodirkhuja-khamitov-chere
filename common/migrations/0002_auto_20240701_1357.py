@@ -21,9 +21,11 @@ def create_settings(*args, **kwargs):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('common', '0002_initial'),
+        ('common', '0001_initial'),
     ]
     atomic=False
     operations = [
         migrations.RunPython(create_settings)
     ]
+
+
