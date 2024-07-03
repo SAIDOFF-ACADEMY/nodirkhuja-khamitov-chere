@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from user.models import User_Profile
+from user.models import User
 from user.models import UserContactApplication
 
 class LogInSerializer(serializers.ModelSerializer):
@@ -7,7 +7,7 @@ class LogInSerializer(serializers.ModelSerializer):
     password = serializers.CharField()
 
     class Meta:
-        model=User_Profile
+        model=User
         fields=('email', 'password')
 
         extra_kwargs = {

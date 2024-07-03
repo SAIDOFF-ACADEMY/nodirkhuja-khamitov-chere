@@ -20,13 +20,12 @@ class LogInView(generics.GenericAPIView):
         email = request.data.get('email')
         password = request.data.get('password')
         user = authenticate(email=email, password=password)
-        if user and user.is_staff: return self.is_token_valid(user=user)
+        if user and user.is_staff: self.get_token(user)
         return Response({'error': _('Invalid Credentials')}, status=status.HTTP_400_BAD_REQUEST)
 
 
-    def is_token_valid(self, user):
-        try: token = Token.objects.get(user=user)
-        except: token = Token.objects.create(user=user)
+    def get_token(self, user):
+        token, _ = Token.objects.get_or_create(user=user)
         return Response({'token': token.key}, status=status.HTTP_200_OK)
 
 

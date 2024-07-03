@@ -22,7 +22,7 @@ class CustomUserManager(UserManager):
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password, **extra_fields)
 
-class User_Profile(AbstractUser):
+class User(AbstractUser):
     class Language(models.TextChoices):
         UZBEK = 'UZ', 'Uzbek'
         RUSSIAN = 'RU', 'Russian'
@@ -59,7 +59,7 @@ class UserContactApplication(BaseModel):
 
     full_name = models.CharField(max_length=50)
     phone_number = models.IntegerField()
-    user = models.ForeignKey(User_Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self) -> str:
         return f'{self.full_name} from telegram: {self.user.telegram_id != None}' 

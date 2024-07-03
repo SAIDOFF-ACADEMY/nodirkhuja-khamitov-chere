@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from user import models
+from user.models import UserContactApplication
+
 
 class UserContacApplicationSerializer(serializers.ModelSerializer):
     class Meta:
-        model=models.User_Profile
+        model=UserContactApplication
         fields=[
             'full_name',
-            'email',
-            'telegram_id',
-            'language'
+            'phone_number',
+            'user',
         ]

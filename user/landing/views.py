@@ -5,5 +5,5 @@ from user.landing import serializers
 
 class UserContactApplicationCreateView(generics.CreateAPIView):
 
-    queryset = models.User_Profile.objects.all()
+    queryset = models.UserContactApplication.objects.all()
     serializer_class = serializers.UserContacApplicationSerializer

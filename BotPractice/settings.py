@@ -160,7 +160,7 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 
 LOCALE_PATHS = BASE_DIR / 'locale',
 
-AUTH_USER_MODEL = 'user.User_Profile'
+AUTH_USER_MODEL = 'user.User'
 
 LANGUAGE_CODE = 'ru'
 

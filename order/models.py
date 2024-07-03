@@ -1,6 +1,6 @@
 from phonenumber_field.modelfields import PhoneNumberField
 
-from user.models import User_Profile
+from user.models import User
 from product.models import Product
 from common.model.base_model import BaseModel
 
@@ -14,7 +14,7 @@ class Orders(BaseModel):
         PROCESS = 'PR', _('Process')
         COMPLETED = 'CD', _('Completed')
 
-    owner = models.ForeignKey(User_Profile,
+    owner = models.ForeignKey(User,
                               on_delete=models.CASCADE,
                               related_name='user_orders')
     count = models.PositiveIntegerField(_('count'))
@@ -30,7 +30,7 @@ class Orders(BaseModel):
                               choices=Status.choices, 
                               default=Status.WAITING)
     
-    admin = models.ForeignKey(User_Profile, on_delete=models.PROTECT, related_name='admin_users')
+    admin = models.ForeignKey(User, on_delete=models.PROTECT, related_name='admin_users')
 
 
 
