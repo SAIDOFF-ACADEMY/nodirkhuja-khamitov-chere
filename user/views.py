@@ -20,7 +20,7 @@ class LogInView(generics.GenericAPIView):
         email = request.data.get('email')
         password = request.data.get('password')
         user = authenticate(email=email, password=password)
-        if user and user.is_staff: self.get_token(user)
+        if user and user.is_staff: return self.get_token(user)
         return Response({'error': _('Invalid Credentials')}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -41,13 +41,13 @@ class UserEmailView(generics.GenericAPIView):
 class UserContactApplicationListView(generics.ListAPIView):
     queryset = UserContactApplication.objects.all()
     serializer_class = serializers.UserContacApplicationSerializer
-    authentication_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAdminUser]
 
 
 class UserContactApplicationEditView(generics.UpdateAPIView):
     queryset = UserContactApplication.objects.all()
     serializer_class = serializers.UserContacApplicationSerializer
-    authentication_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAdminUser]
  
 
  
