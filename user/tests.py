@@ -7,6 +7,8 @@ from user.serializers import UserContacApplicationSerializer
 
 class TestLogIn(APITestCase):
 
+    
+
     def test_check_password_and_email(self):
 
         login_data = {
@@ -76,7 +78,7 @@ class TestUserContactApplication(APITestCase):
         self.assertEqual(response.data, serializer.data)
 
 
-    '''def test_only_admin_can_edit_user_contact_application(self):
+    def test_only_admin_can_edit_user_contact_application(self):
 
         login_data = {
             "email": 'a@a.com',
@@ -85,17 +87,27 @@ class TestUserContactApplication(APITestCase):
 
         user = User.objects.create_user(**login_data, is_staff=True)
 
-        # LOGIN
-        response = self.client.post("/api/v1/admin/user/login", data=login_data)
-        token = response.data['token']
-        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
+    
+        self.client.force_login(user)
 
-        new_data = {
+
+        old_data = {
             "full_name": "nodirkhuja",
             "phone_number": "+998978824141",
             "user": user
         }
 
-        response = self.client.put("/api/v1/admin/user/edit", data=new_data)
+        contact = UserContactApplication.objects.create(**old_data)
+        
+        new_data = {
+            "full_name":'boburkhuja',
+            "phone_number": "+998978804040"
+        } 
 
-        '''
+        response = self.client.put(f"/api/v1/admin/user/edit/{contact.id}", data=new_data)
+        
+    
+        assert response.status_code == 200
+        assert response.data["full_name"] == "boburkhuja"
+
+        
