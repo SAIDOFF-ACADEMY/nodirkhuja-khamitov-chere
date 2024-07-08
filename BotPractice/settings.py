@@ -14,6 +14,22 @@ import environ
 
 from pathlib import Path
 
+
+import sentry_sdk
+
+sentry_sdk.init(
+    dsn="https://a85f5d2af1f49cb76dfdb62e25091841@o4507566397194240.ingest.us.sentry.io/4507566400339968",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
