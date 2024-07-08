@@ -10,6 +10,6 @@ urlpatterns = [
     path('free/list', views.FreeProductListView.as_view(), name='admin-free-product-list'),
     path('free/add', views.FreeProductAdd.as_view(), name='admin-free-product-add'),
     path('free/detail/<str:pk>', views.FreeProductRetriveView.as_view(), name='admin-free-product-get'),
-    path('free/edit/<str:pk>', views.FreeProductEdit.as_view(), name='admin-free-product-edit'),
+    path('free/update/<str:pk>', views.FreeProductEdit.as_view(), name='admin-free-product-edit'),
     path('free/delete/<str:pk>', views.DeleteProductView.as_view(), name='admin-free-product-delete')
 ]   
