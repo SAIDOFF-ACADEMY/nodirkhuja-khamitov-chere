@@ -117,7 +117,7 @@ DATABASES = {
         "NAME": env("DB_NAME"),
         "USER": env("DB_USER"),
         "PASSWORD": env("DB_PASS"),
-        #"HOST": env.str("DB_HOST"),
+        "HOST": "localhost",
         "PORT": env("DB_PORT"),
     },
 }
