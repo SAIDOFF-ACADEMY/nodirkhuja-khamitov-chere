@@ -27,7 +27,6 @@ magic-filter==1.0.12
 matplotlib-inline==0.1.7
 multidict==6.0.5
 parso==0.8.4
-pexpect==4.9.0
 phonenumbers==8.13.39
 pillow==10.3.0
 prompt_toolkit==3.0.47
