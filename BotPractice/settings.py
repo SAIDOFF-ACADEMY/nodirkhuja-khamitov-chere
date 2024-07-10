@@ -120,7 +120,7 @@ DATABASES = {
         "HOST": "localhost",
         "PORT": env("DB_PORT"),
     },
-}
+} 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
