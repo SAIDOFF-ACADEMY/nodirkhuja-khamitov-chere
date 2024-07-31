@@ -21,7 +21,7 @@ class Orders(BaseModel):
     free_count = models.PositiveIntegerField("")
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='products')
     latitude = models.FloatField(max_length=100)
-    longtitude = models.FloatField(max_length=100)
+    longitude = models.FloatField(max_length=100)
     phone_number = PhoneNumberField(unique=True)
     quantity = models.PositiveIntegerField(default=0)
     product_price = models.DecimalField(max_digits=10, decimal_places=2)

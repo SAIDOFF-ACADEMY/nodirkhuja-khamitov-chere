@@ -167,7 +167,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / 'static',
+STATIC_ROOT = BASE_DIR / 'static'
 
 
 MEDIA_ROOT = 'media/'
@@ -183,11 +183,15 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 
 
 
-LOCALE_PATHS = BASE_DIR / 'locale',
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
+LANGUAGE_CODE = 'ru'
+
 
 AUTH_USER_MODEL = 'user.User'
 
-LANGUAGE_CODE = 'ru'
 
 LANGUAGES = [
     ('ru', 'Russian'),

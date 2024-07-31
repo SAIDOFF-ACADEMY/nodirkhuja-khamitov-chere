@@ -1,7 +1,10 @@
 from common.model.base_model import BaseModel
+
 from ckeditor_uploader.fields import RichTextUploadingField
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.db.models import Q
 
 
 class Product(BaseModel):
@@ -29,3 +32,13 @@ class FreeProduct(BaseModel):
 
     def __str__(self) -> str:
         return self.product.name
+    
+    @classmethod
+    def discount(cls, quantity, product):
+        product = Product.objects.get(Q(name_uz=product) | Q(name_ru=product))
+        free = cls.objects.filter(product=product).order_by('-count')
+        free_count = 0
+        for f in free:
+            if quantity >= f.count:
+                return f.free_count
+        return free_count

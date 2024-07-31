@@ -32,7 +32,7 @@ class User(AbstractUser):
     last_name = None
     telegram_id = models.CharField(max_length=200)
     full_name = models.CharField(max_length=75)
-    phone_number = PhoneNumberField(unique=True)
+    phone_number = PhoneNumberField(unique=True, blank=True, null=True)
     email = models.EmailField(unique=True, error_messages={
         _("unique"): _("email must be unique") 
     })
